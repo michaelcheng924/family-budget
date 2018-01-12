@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -12,7 +11,8 @@ import { makeStore } from 'app/helpers';
 import serverRoutes from 'app/server/routes';
 import App from 'app/components/App';
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/appname');
+import google from 'googleapis';
+import googleAuth from 'google-auth-library';
 
 var app = express();
 
@@ -43,6 +43,8 @@ app.use((req, res) => {
             <head>
                 <meta charset="utf-8">
                 <title>React Redux Fullstack Starter</title>
+
+                <script src="https://apis.google.com/js/api.js">
 
                 <link rel="stylesheet" href="/styles.css">
                 <script>
