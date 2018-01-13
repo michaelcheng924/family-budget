@@ -162,8 +162,8 @@ export default class AddItem extends Component {
                 <input type="text" ref={date => this.date = date} placeholder="Date" />
                 {this.renderYear()}
                 <input type="text" ref={description => this.description = description} placeholder="Description" />
-                <input type="text" ref={amount => this.amount = amount} placeholder="Amount" />
                 {this.renderCategoriesSelect()}
+                <input type="text" ref={amount => this.amount = amount} placeholder="Amount" />
                 <button>Add</button>
             </form>
         );

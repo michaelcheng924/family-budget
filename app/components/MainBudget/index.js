@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { setValue } from 'app/actions';
+import { setValue, storeMainBudget } from 'app/actions';
 import AddItem from 'app/components/MainBudget/AddItem';
 
 class MainBudget extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onRowsToShowChange = this.onRowsToShowChange.bind(this);
+    }
+
+    onRowsToShowChange(event) {
+        event.preventDefault();
+
+        this.props.onSetValue('rowsToShow', Number(this.rowsToShow.value));
+    }
+
     renderRows() {
         const { dataRows, headerRows, rowsToShow } = this.props;
 
@@ -54,7 +66,7 @@ class MainBudget extends Component {
     }
 
     render() {
-        const { loading, onSetValue, onStoreMainBudget } = this.props;
+        const { loading, onSetValue, onStoreMainBudget, rowsToShow } = this.props;
 
         return loading
             ? <h1 className="main-budget__loading">LOADING...</h1>
@@ -63,7 +75,11 @@ class MainBudget extends Component {
                     <AddItem
                         newRowIndex={this.props.dataRows.length + 2}
                         onSetValue={onSetValue}
+                        onStoreMainBudget={onStoreMainBudget}
                     />
+                    <form className="main-budget__rows-to-show-form" onSubmit={this.onRowsToShowChange} style={{ display: 'inline-block', float: 'right', width: 45 }}>
+                        <input type="text" ref={rowsToShow => this.rowsToShow = rowsToShow} defaultValue={rowsToShow} />
+                    </form>
                     {this.renderRows()}
                 </div>
             );
@@ -76,7 +92,8 @@ const mapStateToProps = createSelector(
 );
 
 const mapActionsToProps = {
-    onSetValue: setValue
+    onSetValue: setValue,
+    onStoreMainBudget: storeMainBudget
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(MainBudget);
