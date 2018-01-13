@@ -1,0 +1,75 @@
+.charts {
+    margin: 20px;
+
+    &__totals {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    &__total {
+        border: 1px solid #333;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        margin-right: 15px;
+        padding: 10px;
+
+        &--fun-michael {
+            background: #BBDEFB;
+        }
+
+        &--fun-anna {
+            background: #F8BBD0;
+        }
+
+        &--giving {
+            background: #EDE7F6;
+        }
+
+        &--housing {
+            background: #FFCDD2;
+        }
+
+        &--car {
+            background: #FFE0B2;
+        }
+
+        &--grocery {
+            background: #FFF9C4;
+        }
+
+        &--random {
+            background: #B3E5FC;
+        }
+
+        &--travel {
+            background: #E1BEE7;
+        }
+
+        &--health {
+            background: #B2EBF2;
+        }
+
+        &--misc {
+            background: #F5F5F5;
+        }
+
+        &--business {
+            background: #FFCCBC;
+        }
+    }
+
+    &__total-title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    &__monthly {
+        display: flex;
+        flex-wrap: wrap;
+
+        &--category {
+            margin-right: 40px;
+        }
+    }
+}

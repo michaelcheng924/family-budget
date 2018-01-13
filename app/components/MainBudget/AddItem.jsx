@@ -42,7 +42,7 @@ export default class AddItem extends Component {
                                 {
                                     values: [
                                         {
-                                            userEnteredValue: { stringValue: `${date.value}/${year.value}` },
+                                            userEnteredValue: { stringValue: `${date.value}/${year}` },
                                             userEnteredFormat: {
                                                 horizontalAlignment: 'right',
                                                 numberFormat: {

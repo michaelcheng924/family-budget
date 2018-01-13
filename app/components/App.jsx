@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { storeMainBudget } from 'app/actions/MainBudgetActions';
 import MainBudget from 'app/components/MainBudget';
+import Charts from 'app/components/Charts';
 
 class App extends Component {
     constructor(props) {
@@ -90,17 +92,21 @@ class App extends Component {
         return (
             <div>
                 <Component>
-                    <div>
-                        <div className="root-nav">
-                            <div className="root-nav__title">Budget</div>
-                            <div className="root-nav__actions">
-                                <Link className="root-nav__view" to="/">Main Budget</Link>
-                                <button id="authorize-button" style={{ display: 'none' }}>Authorize</button>
-                                <button id="signout-button" style={{ display: 'none' }}>Logout</button>
+                    <MuiThemeProvider>
+                        <div>
+                            <div className="root-nav">
+                                <div className="root-nav__title">Budget</div>
+                                <div className="root-nav__actions">
+                                    <Link className="root-nav__view" to="/">Main Budget</Link>
+                                    <Link className="root-nav__view" to="/charts">Charts</Link>
+                                    <button id="authorize-button" style={{ display: 'none' }}>Authorize</button>
+                                    <button id="signout-button" style={{ display: 'none' }}>Logout</button>
+                                </div>
                             </div>
+                            <Route exact path="/" component={MainBudget}/>
+                            <Route exact path="/charts" component={Charts}/>
                         </div>
-                        <Route exact path="/" component={MainBudget}/>
-                    </div>
+                    </MuiThemeProvider>
                 </Component>
             </div>
         );

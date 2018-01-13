@@ -46,24 +46,24 @@ export const healthExpensesIndex = 44;
 export const healthTotalIndex = 45;
 export const miscExpensesIndex = 46;
 export const miscTotalIndex = 47;
-export const hackReactorExpensesIndex = 48;
-export const hackReactorTotalIndex = 49;
+export const facebookAdsExpensesIndex = 48;
+export const facebookAdsTotalIndex = 49;
 export const businessExpensesIndex = 50;
 export const businessTotalIndex = 51;
 
 export const dateMapping = {
-    0: '01 - January',
-    1: '02 - February',
-    2: '03 - March',
-    3: '04 - April',
-    4: '05 - May',
-    5: '06 - June',
-    6: '07 - July',
-    7: '08 - August',
-    8: '09 - September',
-    9: '10 - October',
-    10: '11 - November',
-    11: '12 - December',
+    0: '01',
+    1: '02',
+    2: '03',
+    3: '04',
+    4: '05',
+    5: '06',
+    6: '07',
+    7: '08',
+    8: '09',
+    9: '10',
+    10: '11',
+    11: '12',
     116: '2016',
     117: '2017',
     118: '2018',
@@ -184,8 +184,8 @@ export const categoriesMapping = [
         budget: 100
     },
     {
-        name: 'Hack Reactor Tuition',
-        index: hackReactorExpensesIndex,
+        name: 'Facebook Ads',
+        index: facebookAdsExpensesIndex,
         budget: 450
     },
     {
