@@ -104,7 +104,7 @@ export default class AddItem extends Component {
             spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
             range: 'Main Budget!A1:AZ'
         }).then(function(response) {
-            this.props.onStoreMainBudget(this.getFilledRows(response.body));
+            this.props.onSetValue('mainBudget', this.getFilledRows(response.body));
         }.bind(this), function(response) {
             console.log('Error: ' + response.result.error.message);
         });

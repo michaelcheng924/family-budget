@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { storeMainBudget } from 'app/actions/MainBudgetActions';
+import { setValue } from 'app/actions';
 import MainBudget from 'app/components/MainBudget';
 import Charts from 'app/components/Charts';
+import Savings from 'app/components/Savings';
 
 class App extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class App extends Component {
             spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
             range: 'Main Budget!A1:AZ'
         }).then(function(response) {
-            this.props.onStoreMainBudget(this.getFilledRows(response.body));
+            this.props.onSetValue('mainBudget', this.getFilledRows(response.body));
         }.bind(this), function(response) {
             console.log('Error: ' + response.result.error.message);
         });
@@ -105,6 +106,7 @@ class App extends Component {
                             </div>
                             <Route exact path="/" component={MainBudget}/>
                             <Route exact path="/charts" component={Charts}/>
+                            <Route exact path="/savings" component={Savings}/>
                         </div>
                     </MuiThemeProvider>
                 </Component>
@@ -114,7 +116,7 @@ class App extends Component {
 };
 
 const mapActionsToProps = {
-    onStoreMainBudget: storeMainBudget
+    onSetValue: setValue
 };
 
 export default connect(null, mapActionsToProps)(App);

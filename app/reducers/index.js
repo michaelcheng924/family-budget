@@ -1,1 +1,1 @@
-export { default as mainBudget } from 'app/reducers/MainBudgetReducer';
+export { default as app } from 'app/reducers/reducer';

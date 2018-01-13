@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { setValue, storeMainBudget } from 'app/actions/MainBudgetActions';
+import { setValue } from 'app/actions/MainBudgetActions';
 import AddItem from 'app/components/MainBudget/AddItem';
 
 class MainBudget extends Component {
@@ -63,7 +63,6 @@ class MainBudget extends Component {
                     <AddItem
                         newRowIndex={this.props.dataRows.length + 2}
                         onSetValue={onSetValue}
-                        onStoreMainBudget={onStoreMainBudget}
                     />
                     {this.renderRows()}
                 </div>
@@ -72,13 +71,12 @@ class MainBudget extends Component {
 }
 
 const mapStateToProps = createSelector(
-    state => state.mainBudget,
-    mainBudget => ({ ...mainBudget })
+    state => state.app,
+    app => ({ ...app })
 );
 
 const mapActionsToProps = {
-    onSetValue: setValue,
-    onStoreMainBudget: storeMainBudget
+    onSetValue: setValue
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(MainBudget);
