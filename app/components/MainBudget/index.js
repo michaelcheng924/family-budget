@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { setValue } from 'app/actions/MainBudgetActions';
+import { setValue } from 'app/actions';
 import AddItem from 'app/components/MainBudget/AddItem';
 
 class MainBudget extends Component {

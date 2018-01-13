@@ -1,4 +1,4 @@
-import { SET_VALUE, STORE_MAIN_BUDGET } from 'app/actions/MainBudgetActions';
+import { SET_VALUE, STORE_MAIN_BUDGET } from 'app/actions';
 
 const defaultState = {
     dataRows: [],

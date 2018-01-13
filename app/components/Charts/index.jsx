@@ -268,8 +268,8 @@ class Charts extends Component {
 }
 
 const mapStateToProps = createSelector(
-    state => state.mainBudget,
-    mainBudget => ({ ...mainBudget })
+    state => state.app,
+    app => ({ ...app })
 );
 
 export default connect(mapStateToProps)(Charts);
