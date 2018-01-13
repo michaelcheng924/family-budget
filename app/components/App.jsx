@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { setValue, storeMainBudget } from 'app/actions';
+import { setValue, storeMainBudget, storeSavings } from 'app/actions';
 import MainBudget from 'app/components/MainBudget';
 import Charts from 'app/components/Charts';
 import Savings from 'app/components/Savings';
@@ -78,6 +78,15 @@ class App extends Component {
             range: 'Main Budget!A1:AZ'
         }).then(function(response) {
             this.props.onStoreMainBudget(this.getFilledRows(response.body));
+
+            gapi.client.sheets.spreadsheets.values.get({
+                spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
+                range: 'Savings Goals!A1:W'
+            }).then(function(response) {
+                this.props.onStoreSavings(this.getFilledRows(response.body));
+            }.bind(this), function(response) {
+                console.log('Error: ' + response.result.error.message);
+            });
         }.bind(this), function(response) {
             console.log('Error: ' + response.result.error.message);
         });
@@ -100,6 +109,7 @@ class App extends Component {
                                 <div className="root-nav__actions">
                                     <Link className="root-nav__view" to="/">Main Budget</Link>
                                     <Link className="root-nav__view" to="/charts">Charts</Link>
+                                    <Link className="root-nav__view" to="/savings">Savings</Link>
                                     <button id="authorize-button" style={{ display: 'none' }}>Authorize</button>
                                     <button id="signout-button" style={{ display: 'none' }}>Logout</button>
                                 </div>
@@ -117,7 +127,8 @@ class App extends Component {
 
 const mapActionsToProps = {
     onSetValue: setValue,
-    onStoreMainBudget: storeMainBudget
+    onStoreMainBudget: storeMainBudget,
+    onStoreSavings: storeSavings
 };
 
 export default connect(null, mapActionsToProps)(App);

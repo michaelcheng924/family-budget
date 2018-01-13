@@ -1,0 +1,19 @@
+.savings {
+    margin: 20px;
+
+    &__totals {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__category {
+        border: 1px solid #333;
+        border-radius: 10px;
+        margin-right: 20px;
+        padding: 10px;
+
+        h4 {
+            margin: 0 0 8px;
+        }
+    }
+}
