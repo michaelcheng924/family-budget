@@ -76,12 +76,12 @@ class App extends Component {
         }).then(function(response) {
             this.props.onStoreMainBudget(this.getFilledRows(response.body));
         }.bind(this), function(response) {
-            appendPre('Error: ' + response.result.error.message);
+            console.log('Error: ' + response.result.error.message);
         });
     }
 
     getFilledRows(rows) {
-        return JSON.parse(rows).values.filter(row => row[0]);
+        return JSON.parse(rows).values.filter((row, index) => row[0] || index === 0);
     }
 
     render() {
@@ -89,15 +89,18 @@ class App extends Component {
 
         return (
             <div>
-                <div className="root-nav">
-                    <div className="root-nav__title">Budget</div>
-                    <div className="root-nav__actions">
-                        <button id="authorize-button" style={{ display: 'none' }}>Authorize</button>
-                        <button id="signout-button" style={{ display: 'none' }}>Logout</button>
-                    </div>
-                </div>
                 <Component>
-                    <Route exact path="/" component={MainBudget}/>
+                    <div>
+                        <div className="root-nav">
+                            <div className="root-nav__title">Budget</div>
+                            <div className="root-nav__actions">
+                                <Link className="root-nav__view" to="/">Main Budget</Link>
+                                <button id="authorize-button" style={{ display: 'none' }}>Authorize</button>
+                                <button id="signout-button" style={{ display: 'none' }}>Logout</button>
+                            </div>
+                        </div>
+                        <Route exact path="/" component={MainBudget}/>
+                    </div>
                 </Component>
             </div>
         );

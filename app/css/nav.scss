@@ -12,6 +12,14 @@
     }
 
     &__actions {
+        display: flex;
         margin: 0 15px;
+    }
+
+    &__view {
+        color: #FFF;
+        cursor: pointer;
+        margin: 0 15px;
+        text-decoration: none;
     }
 }

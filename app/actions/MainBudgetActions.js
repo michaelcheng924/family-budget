@@ -1,4 +1,15 @@
+export const SET_VALUE = 'mainBudget:setValue';
 export const STORE_MAIN_BUDGET = 'mainBudget:storeMainBudget';
+
+export function setValue(property, value) {
+    return {
+        type: SET_VALUE,
+        payload: {
+            property,
+            value
+        }
+    };
+}
 
 export function storeMainBudget(rows) {
     return {

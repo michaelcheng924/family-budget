@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
+import { setValue, storeMainBudget } from 'app/actions/MainBudgetActions';
+import AddItem from 'app/components/MainBudget/AddItem';
+
 class MainBudget extends Component {
     renderRows() {
-        const rows = this.props.rows;
-
-        const headers = rows.slice(0, 2);
+        const { dataRows, headerRows, rowsToShow } = this.props;
 
         return (
-            <table>
+            <table className="main-budget__table">
                 <thead>
                     {
-                        headers.map(headerCells => {
+                        headerRows.map((headerCells, index) => {
                             return (
-                                <tr>
+                                <tr key={index}>
                                     {
-                                        headerCells.map(headerCell => {
+                                        headerCells.map((headerCell, index1) => {
                                             return (
-                                                <th>
+                                                <th key={index1} className="main-budget__table-cell">
                                                     {headerCell}
                                                 </th>
                                             );
@@ -30,24 +31,54 @@ class MainBudget extends Component {
                     }
                 </thead>
                 <tbody>
-
+                    {
+                        dataRows.slice(0, rowsToShow).map((dataCells, index) => {
+                            return (
+                                <tr key={index}>
+                                    {
+                                        dataCells.map((dataCell, index1) => {
+                                            return (
+                                                <td key={index1} className="main-budget__table-cell">
+                                                    {dataCell}
+                                                </td>
+                                            );
+                                        })
+                                    }
+                                </tr>
+                            );
+                        })
+                    }
                 </tbody>
             </table>
         );
     }
 
     render() {
-        return (
-            <div>
-                {this.renderRows()}
-            </div>
-        );
+        const { loading, onSetValue, onStoreMainBudget } = this.props;
+
+        return loading
+            ? <h1 className="main-budget__loading">LOADING...</h1>
+            : (
+                <div>
+                    <AddItem
+                        newRowIndex={this.props.dataRows.length + 2}
+                        onSetValue={onSetValue}
+                        onStoreMainBudget={onStoreMainBudget}
+                    />
+                    {this.renderRows()}
+                </div>
+            );
     }
-};
+}
 
 const mapStateToProps = createSelector(
     state => state.mainBudget,
     mainBudget => ({ ...mainBudget })
 );
 
-export default connect(mapStateToProps, null)(MainBudget);
+const mapActionsToProps = {
+    onSetValue: setValue,
+    onStoreMainBudget: storeMainBudget
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(MainBudget);
