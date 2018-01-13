@@ -64,6 +64,37 @@ class Charts extends Component {
         });
     }
 
+    getBusinessData() {
+        const rows = this.props.dataRows.sort((a, b) => {
+            return new Date(b[0]).getTime() - new Date(a[0]).getTime();
+        });
+
+        return rows.reduce((result, row) => {
+            const year = constants.dateMapping[new Date(row[0]).getYear()];
+            if (!result[year]) {
+                result[year] = {
+                    businessIncome: 0,
+                    businessExpenses: 0
+                };
+            }
+
+            const description = row[constants.descriptionIndex].toLowerCase();
+            const businessExpenses = getNumber(row[constants.businessExpensesIndex]);
+
+            if (description.indexOf('redistribute categories') !== -1) { return result; }
+
+            if (description.indexOf('bestactprep') !== -1 || description.indexOf('stripe') !== -1 || description.indexOf('google adsense') !== -1) {
+                result[year].businessIncome += getNumber(row[constants.incomeIndex]);
+            }
+
+            if (businessExpenses) {
+                result[year].businessExpenses += businessExpenses;
+            }
+
+            return result;
+        }, {});
+    }
+
     renderTotals() {
         const { dataRows } = this.props;
 
@@ -168,7 +199,7 @@ class Charts extends Component {
 
     renderMonthly() {
         const monthlyData = this.getMonthlyData();
-console.log(monthlyData);
+
         return (
             <div className="charts__monthly">
                 <div className="charts__monthly--category">
@@ -184,10 +215,30 @@ console.log(monthlyData);
                     <h3>Gas</h3>
                     {
                         monthlyData.gas.months.map((month, index) => {
-                            return <div key={index}>${month.monthTitle} - <strong>${month.total}</strong></div>;
+                            return <div key={index}>{month.monthTitle} - <strong>${month.total}</strong></div>;
                         })
                     }
                 </div>
+            </div>
+        );
+    }
+
+    renderBusiness() {
+        const business = this.getBusinessData();
+
+        return (
+            <div className="charts__business">
+                {
+                    map(business, (value, key) => {
+                        return (
+                            <div className="charts__business--year" key={key}>
+                                <h4>{key}</h4>
+                                <div>Income: <strong>${value.businessIncome}</strong></div>
+                                <div>Expenses: <strong>${value.businessExpenses}</strong></div>
+                            </div>
+                        );
+                    })
+                }
             </div>
         );
     }
@@ -206,7 +257,11 @@ console.log(monthlyData);
                     <Tab label="Monthly" >
                       {this.renderMonthly()}
                     </Tab>
+                    <Tab label="Business" >
+                      {this.renderBusiness()}
+                    </Tab>
                   </Tabs>
+                }
             </div>
         );
     }

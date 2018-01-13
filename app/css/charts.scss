@@ -72,4 +72,17 @@
             margin-right: 40px;
         }
     }
+
+    &__business {
+        display: flex;
+        flex-wrap: wrap;
+
+        h4 {
+            margin-bottom: 8px;
+        }
+
+        &--year {
+            margin-right: 40px;
+        }
+    }
 }
