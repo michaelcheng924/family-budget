@@ -42,11 +42,11 @@ app.use((req, res) => {
         <html>
             <head>
                 <meta charset="utf-8">
-                <title>React Redux Fullstack Starter</title>
-
-                <script src="https://apis.google.com/js/api.js">
+                <title>Budget</title>
 
                 <link rel="stylesheet" href="/styles.css">
+                <script src="https://apis.google.com/js/api.js">
+
                 <script>
                     window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
                 </script>

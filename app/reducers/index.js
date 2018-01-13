@@ -1,1 +1,1 @@
-export { default as users } from 'app/reducers/UsersReducer';
+export { default as mainBudget } from 'app/reducers/MainBudgetReducer';

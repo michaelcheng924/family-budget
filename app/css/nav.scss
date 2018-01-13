@@ -1,0 +1,17 @@
+.root-nav {
+    align-items: center;
+    background: #01579B;
+    color: #FFF;
+    display: flex;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 35px;
+    justify-content: space-between;
+
+    &__title {
+        margin: 0 15px;
+    }
+
+    &__actions {
+        margin: 0 15px;
+    }
+}
