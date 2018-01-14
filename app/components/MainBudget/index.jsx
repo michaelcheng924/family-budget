@@ -4,11 +4,13 @@ import { createSelector } from 'reselect';
 
 import { setValue, storeMainBudget } from 'app/actions';
 import AddItem from 'app/components/MainBudget/AddItem';
+import SingleCell from 'app/components/MainBudget/SingleCell';
 
 class MainBudget extends Component {
     constructor(props) {
         super(props);
 
+        this.getBudget = this.getBudget.bind(this);
         this.onRowsToShowChange = this.onRowsToShowChange.bind(this);
     }
 
@@ -18,8 +20,23 @@ class MainBudget extends Component {
         this.props.onSetValue('rowsToShow', Number(this.rowsToShow.value));
     }
 
+    getBudget() {
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
+            range: 'Main Budget!A1:AZ'
+        }).then(function(response) {
+            this.props.onStoreMainBudget(this.getFilledRows(response.body));
+        }.bind(this), function(response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+    }
+
+    getFilledRows(rows) {
+        return JSON.parse(rows).values.filter((row, index) => row[0] || index === 0);
+    }
+
     renderRows() {
-        const { dataRows, headerRows, rowsToShow } = this.props;
+        const { dataRows, headerRows, onSetValue, rowsToShow } = this.props;
 
         return (
             <table className="main-budget__table">
@@ -50,9 +67,14 @@ class MainBudget extends Component {
                                     {
                                         dataCells.map((dataCell, index1) => {
                                             return (
-                                                <td key={index1} className="main-budget__table-cell">
-                                                    {dataCell}
-                                                </td>
+                                                <SingleCell
+                                                    key={index1}
+                                                    dataCell={dataCell}
+                                                    getBudget={this.getBudget}
+                                                    column={index1}
+                                                    onSetValue={onSetValue}
+                                                    row={dataRows.length + 1 - index}
+                                                />
                                             );
                                         })
                                     }
@@ -73,6 +95,7 @@ class MainBudget extends Component {
             : (
                 <div>
                     <AddItem
+                        getBudget={this.getBudget}
                         newRowIndex={this.props.dataRows.length + 2}
                         onSetValue={onSetValue}
                         onStoreMainBudget={onStoreMainBudget}

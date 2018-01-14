@@ -93,25 +93,10 @@ export default class AddItem extends Component {
                 ]
             }
         }).then(function(response) {
-            this.getBudget();
+            this.props.getBudget();
         }.bind(this), function(response) {
             console.log('Error: ' + response.result.error.message);
         });
-    }
-
-    getBudget() {
-        gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
-            range: 'Main Budget!A1:AZ'
-        }).then(function(response) {
-            this.props.onStoreMainBudget(this.getFilledRows(response.body));
-        }.bind(this), function(response) {
-            console.log('Error: ' + response.result.error.message);
-        });
-    }
-
-    getFilledRows(rows) {
-        return JSON.parse(rows).values.filter((row, index) => row[0] || index === 0);
     }
 
     renderYear() {
