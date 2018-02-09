@@ -113,7 +113,7 @@ class Charts extends Component {
                     {dataRows[0][constants.funAnnaTotalIndex]}
                 </div>
                 <div className="charts__total charts__total--fun-anna">
-                    <div className="charts__total-title">Anna Fun</div>
+                    <div className="charts__total-title">Anna Clothing</div>
                     {dataRows[0][constants.clothingAnnaTotalIndex]}
                 </div>
 
