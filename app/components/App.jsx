@@ -75,7 +75,7 @@ class App extends Component {
     getBudget() {
         gapi.client.sheets.spreadsheets.values.get({
             spreadsheetId: '1OtFV6WA2Ec3T0UR7cgzSp9wozabz_NzPprUdT56Nt5U',
-            range: 'Main Budget!A1:AZ'
+            range: 'Main Budget!A1:BA'
         }).then(function(response) {
             this.props.onStoreMainBudget(this.getFilledRows(response.body));
 

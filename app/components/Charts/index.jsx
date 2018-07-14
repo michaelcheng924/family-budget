@@ -10,7 +10,8 @@ class Charts extends Component {
     getMonthlyData() {
         const { dateMapping } = constants;
 
-        const rows = this.props.dataRows.sort((a, b) => {
+        const rowsCopy = this.props.dataRows.slice();
+        const rows = rowsCopy.sort((a, b) => {
             return new Date(b[0]).getTime() - new Date(a[0]).getTime();
         });
 
@@ -65,7 +66,8 @@ class Charts extends Component {
     }
 
     getBusinessData() {
-        const rows = this.props.dataRows.sort((a, b) => {
+        const rowsCopy = this.props.dataRows.slice();
+        const rows = rowsCopy.sort((a, b) => {
             return new Date(b[0]).getTime() - new Date(a[0]).getTime();
         });
 
