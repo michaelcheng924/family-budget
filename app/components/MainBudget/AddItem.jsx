@@ -14,7 +14,7 @@ export default class AddItem extends Component {
         this.addItem = this.addItem.bind(this);
     }
 
-    addItem(event) {
+    addItem(event) { 
         event.preventDefault();
 
         const { date, description, amount } = this;
